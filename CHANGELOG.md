@@ -1,3 +1,7 @@
+## 1.0.4
+
+Revert Android minSDKVersion to 23 since calls to newer APIs are guarded.
+
 ## 1.0.3
 
 Enable MacOS support
