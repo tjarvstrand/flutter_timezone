@@ -45,19 +45,11 @@ class FlutterTimezonePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun getLocalTimezone(): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ZoneId.systemDefault().id
-        } else {
-            TimeZone.getDefault().id
-        }
+        return ZoneId.systemDefault().id
     }
 
     private fun getAvailableTimezones(): List<String> {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ZoneId.getAvailableZoneIds().toCollection(ArrayList())
-        } else {
-            TimeZone.getAvailableIDs().toCollection(ArrayList())
-        }
+        return ZoneId.getAvailableZoneIds().toCollection(ArrayList())
     }
 
     private fun setupMethodChannel(messenger: BinaryMessenger) {

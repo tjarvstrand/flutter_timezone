@@ -6,7 +6,27 @@ This is a fork of the original [flutter_native_timezone](https://pub.dev/package
 
 ## Getting Started
 
-Install this package and everything good will just follow along with you.
+Install this package and update the `build.gradle` file of your Android app to enable [desugaring](https://developer.android.com/studio/releases/gradle-plugin#j8-library-desugaring). Please see the link on desugaring for details but the main parts needed in this Gradle file would be
+
+```gradle
+android {
+  defaultConfig {
+    multiDexEnabled true
+  }
+
+  compileOptions {
+    // Flag to enable support for the new language APIs
+    coreLibraryDesugaringEnabled true
+    // Sets Java compatibility to Java 8
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.0'
+}
+```
 
 ## Usage examples
 

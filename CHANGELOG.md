@@ -1,3 +1,8 @@
+## 2.0.0
+
+* **Breaking change** bumped minimum Flutter SDK requirement to 3.0.0
+* Updated AGP to 7.3.1 and use desugaring to allowing use of the newer Java time APIs on all the Android versions supported by the plugin
+
 ## 1.0.4
 
 Revert Android minSDKVersion to 23 since calls to newer APIs are guarded.
