@@ -1,3 +1,7 @@
+## 1.0.6
+
+Re-add lost example file.
+
 ## 1.0.5
 
 Support for Android Gradle Plugin version 8.
