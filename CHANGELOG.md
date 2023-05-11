@@ -1,3 +1,7 @@
+## 1.0.5
+
+Support for Android Gradle Plugin version 8.
+
 ## 1.0.4
 
 Revert Android minSDKVersion to 16 since calls to newer APIs are guarded.
