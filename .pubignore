@@ -1,5 +1,0 @@
-*.iml
-local.properties
-test
-example
-^example/lib/main.dart
