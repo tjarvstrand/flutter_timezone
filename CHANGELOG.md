@@ -1,3 +1,8 @@
+## 1.0.7
+
+Android:
+- Set JVM target to Java 8 for Kotlin language. Fix issue [#10](https://github.com/tjarvstrand/flutter_timezone/issues/10).
+
 ## 1.0.6
 
 Re-add lost example file.
