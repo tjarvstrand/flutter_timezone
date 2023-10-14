@@ -1,7 +1,14 @@
+## 1.0.8
+
+Android:
+ - Bump Kotlin version to 1.6.21. Fixes [#15](https://github.com/tjarvstrand/flutter_timezone/issues/15).
+
+Note: This version may require running a Gradle clean BEFORE you upgrade.
+
 ## 1.0.7
 
 Android:
-- Set JVM target to Java 8 for Kotlin language. Fix issue [#10](https://github.com/tjarvstrand/flutter_timezone/issues/10).
+- Set JVM target to Java 8 for Kotlin language. Fixes [#10](https://github.com/tjarvstrand/flutter_timezone/issues/10).
 
 ## 1.0.6
 
