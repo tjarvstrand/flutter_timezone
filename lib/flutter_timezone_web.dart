@@ -45,14 +45,20 @@ class FlutterTimezonePlugin {
 @JS('Intl.DateTimeFormat')
 external _JSDateTimeFormat jsDateTimeFormat();
 
-@JS()
-abstract class _JSDateTimeFormat {
+@JS('Intl.DateTimeFormat.prototype')
+@staticInterop
+abstract class _JSDateTimeFormat {}
+
+extension on _JSDateTimeFormat {
   @JS()
   external _JSResolvedOptions resolvedOptions();
 }
 
 @JS()
-abstract class _JSResolvedOptions {
+@staticInterop
+abstract class _JSResolvedOptions {}
+
+extension on _JSResolvedOptions {
   @JS()
   external String get timeZone;
 }
