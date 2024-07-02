@@ -1,3 +1,10 @@
+## 2.0.0
+
+Support for Wasm compilation.
+
+This updates the code to use the new web and js_interop libraries, which means that Flutter 3.22.0
+or later is required.
+
 ## 1.0.8
 
 Android:
