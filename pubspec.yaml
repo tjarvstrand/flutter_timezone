@@ -32,6 +32,8 @@ flutter:
         pluginClass: FlutterTimezonePlugin
       macos:
         pluginClass: FlutterTimezonePlugin
+      windows:
+        pluginClass: FlutterTimezonePluginCApi
       web:
         pluginClass: FlutterTimezonePlugin
         fileName: flutter_timezone_web.dart
