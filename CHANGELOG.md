@@ -1,3 +1,7 @@
+## 2.0.1
+
+Remove unused dependencies.
+
 ## 2.0.0
 
 Support for Wasm compilation.
