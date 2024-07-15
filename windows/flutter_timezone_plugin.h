@@ -7,24 +7,30 @@
 #include <memory>
 
 namespace flutter_timezone {
+    constexpr auto kGetLocalTimezone = "getLocalTimezone";
+    constexpr auto kGetAvailableTimezones = "getAvailableTimezones";
 
-class FlutterTimezonePlugin : public flutter::Plugin {
- public:
-  static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
+    class FlutterTimezonePlugin : public flutter::Plugin {
+    public:
+        static void RegisterWithRegistrar(flutter::PluginRegistrarWindows* registrar);
 
-  FlutterTimezonePlugin();
+        FlutterTimezonePlugin();
 
-  virtual ~FlutterTimezonePlugin();
+        virtual ~FlutterTimezonePlugin();
 
-  // Disallow copy and assign.
-  FlutterTimezonePlugin(const FlutterTimezonePlugin&) = delete;
-  FlutterTimezonePlugin& operator=(const FlutterTimezonePlugin&) = delete;
+        // Disallow copy and assign.
+        FlutterTimezonePlugin(const FlutterTimezonePlugin&) = delete;
+        FlutterTimezonePlugin& operator=(const FlutterTimezonePlugin&) = delete;
 
-  // Called when a method is called on this plugin's channel from Dart.
-  void HandleMethodCall(
-      const flutter::MethodCall<flutter::EncodableValue> &method_call,
-      std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
-};
+        // Called when a method is called on this plugin's channel from Dart.
+        void HandleMethodCall(
+            const flutter::MethodCall<flutter::EncodableValue>& method_call,
+            std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
+
+    private:
+        void GetLocalTimezone(std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>>& result);
+        void GetAvailableTimezones(std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>>& result);
+    };
 
 }  // namespace flutter_timezone
 
