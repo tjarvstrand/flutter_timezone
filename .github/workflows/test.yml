@@ -30,3 +30,16 @@ jobs:
       - run: flutter test
       - run: flutter test
         working-directory: example
+
+  integration-test-windows:
+    name: 'Integration Test on windows-latest'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: run integration test
+        run: .\run_integration_test_windows.ps1
+        working-directory: example
