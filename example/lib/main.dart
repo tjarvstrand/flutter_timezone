@@ -41,20 +41,38 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Local timezone app'),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            await _initData();
+          },
+          child: Icon(Icons.refresh),
         ),
-        body: Column(
-          children: <Widget>[
-            Text('Local timezone: $_timezone\n'),
-            Text('Available timezones:'),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _availableTimezones.length,
-                itemBuilder: (_, index) => Text(_availableTimezones[index]),
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Local Time Zone',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            )
-          ],
+              Text(
+                _timezone,
+                key: const ValueKey('timeZoneLabel'),
+              ),
+              SizedBox(height: 12),
+              Text(
+                'Available Time Zones (${_availableTimezones.length})',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _availableTimezones.length,
+                  itemBuilder: (_, index) => Text(_availableTimezones[index]),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
