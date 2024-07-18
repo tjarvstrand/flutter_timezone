@@ -1,6 +1,6 @@
 name: flutter_timezone
 description: A flutter plugin for getting the local timezone of the device.
-version: 2.0.1
+version: 2.1.0
 homepage: https://github.com/tjarvstrand/flutter_timezone
 
 environment:
