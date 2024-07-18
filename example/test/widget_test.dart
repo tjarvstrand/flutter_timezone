@@ -10,7 +10,9 @@ void main() {
     // Verify that platform version is retrieved.
     expect(
       find.byWidgetPredicate(
-        (Widget widget) => widget is Text && widget.data?.startsWith('Local timezone:') == true,
+        (Widget widget) =>
+            widget is Text &&
+            widget.data?.startsWith('Local Time Zone') == true,
       ),
       findsOneWidget,
     );
