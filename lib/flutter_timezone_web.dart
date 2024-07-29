@@ -41,15 +41,16 @@ class FlutterTimezonePlugin {
     return jsDateTimeFormat().resolvedOptions().timeZone;
   }
 
-   List<String> _getAvailableTimezones() {
-    return _getSupportedTimezonesWeb('timeZone'.toJS).toDart.cast<String>();
+  List<String> _getAvailableTimezones() {
+    final function = supportedValuesOf as _DartFunctionSupportedValuesOf?;
+    return function?.call('timeZone') ?? [_getLocalTimeZone()];
   }
 }
 
+typedef _DartFunctionSupportedValuesOf = List<String> Function(String value);
 
 @JS('Intl.supportedValuesOf')
-external JSArray<JSString> _getSupportedTimezonesWeb(JSString value);
-
+external JSFunction? supportedValuesOf;
 
 @JS('Intl.DateTimeFormat')
 external _JSDateTimeFormat jsDateTimeFormat();
