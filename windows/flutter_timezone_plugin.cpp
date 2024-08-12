@@ -63,22 +63,11 @@ namespace flutter_timezone {
     /// </remarks>
     void FlutterTimezonePlugin::GetLocalTimezone(
         std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>>& result) {
+        // This entire function body could be replaced with a call to `ucal_getHostTimeZone`.
+        // However, that function as only added in ICU 65, which is only available on Windows 11.
+        // Once we drop support for older Windows versions, this should be replaced.
 
-        // `ucal_getHostTimeZone` is only supported on Windows 10 21H2 or later, so we need to fetch
-        // the Windows time zone ourselves on older systems.
-#if (NTDDI_VERSION >= 0x0A00000B) // NTDDI_WIN10_CO, 21H2
-        UErrorCode status = U_ZERO_ERROR;
-        UChar buffer[128];
-
-        // We ignore the status value and length result here; if this method fails, `buffer` will
-        // contain "Etc/Unknown", which is fine.
-        ucal_getHostTimeZone(buffer, ARRAYSIZE(buffer), &status);
-
-        std::wstring tz(buffer);
-#pragma warning(suppress : 4244)
-        result->Success(std::string(tz.begin(), tz.end()));
-#else
-// Get the current Windows time zone
+        // Get the current Windows time zone
         DYNAMIC_TIME_ZONE_INFORMATION tzInfo;
         GetDynamicTimeZoneInformation(&tzInfo);
 
@@ -111,7 +100,6 @@ namespace flutter_timezone {
         std::wstring tz(buffer);
 #pragma warning(suppress : 4244)
         result->Success(flutter::EncodableValue(std::string(tz.begin(), tz.end())));
-#endif
     }
 
     /// <summary>
