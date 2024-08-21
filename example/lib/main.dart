@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -42,10 +44,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await _initData();
-          },
-          child: Icon(Icons.refresh),
+          onPressed: _initData,
+          child: const Icon(Icons.refresh),
         ),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
                 _timezone,
                 key: const ValueKey('timeZoneLabel'),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Text(
                 'Available Time Zones (${_availableTimezones.length})',
                 style: Theme.of(context).textTheme.titleMedium,

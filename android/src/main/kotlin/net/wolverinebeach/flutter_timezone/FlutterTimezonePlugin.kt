@@ -17,17 +17,9 @@ class FlutterTimezonePlugin : FlutterPlugin, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
 
-    // backward compatibility with flutter api v1
-    companion object {
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val plugin = FlutterTimezonePlugin()
-            plugin.setupMethodChannel(registrar.messenger())
-        }
-    }
-
     override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        setupMethodChannel(binding.binaryMessenger)
+        channel = MethodChannel(binding.binaryMessenger, "flutter_timezone")
+        channel.setMethodCallHandler(this)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
@@ -58,10 +50,5 @@ class FlutterTimezonePlugin : FlutterPlugin, MethodCallHandler {
         } else {
             TimeZone.getAvailableIDs().toCollection(ArrayList())
         }
-    }
-
-    private fun setupMethodChannel(messenger: BinaryMessenger) {
-        channel = MethodChannel(messenger, "flutter_timezone")
-        channel.setMethodCallHandler(this)
     }
 }

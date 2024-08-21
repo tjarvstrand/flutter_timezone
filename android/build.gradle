@@ -26,13 +26,13 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'net.wolverinebeach.flutter_timezone'
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        targetSdkVersion 33
+        targetSdkVersion 34
         minSdkVersion 16
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
