@@ -24,7 +24,7 @@ class FlutterTimezonePlugin {
       case 'getLocalTimezone':
         return _getLocalTimeZone();
       case 'getAvailableTimezones':
-        return [_getLocalTimeZone()];
+        return _getAvailableTimezones();
       default:
         throw PlatformException(
             code: 'Unimplemented',
@@ -40,7 +40,17 @@ class FlutterTimezonePlugin {
   String _getLocalTimeZone() {
     return jsDateTimeFormat().resolvedOptions().timeZone;
   }
+
+  List<String> _getAvailableTimezones() {
+    final function = supportedValuesOf as _DartFunctionSupportedValuesOf?;
+    return function?.call('timeZone') ?? [_getLocalTimeZone()];
+  }
 }
+
+typedef _DartFunctionSupportedValuesOf = List<String> Function(String value);
+
+@JS('Intl.supportedValuesOf')
+external JSFunction? supportedValuesOf;
 
 @JS('Intl.DateTimeFormat')
 external _JSDateTimeFormat jsDateTimeFormat();
