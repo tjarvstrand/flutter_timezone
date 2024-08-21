@@ -1,3 +1,10 @@
+## 3.0.0
+
+* **Breaking change:** Remove support for the old version 1 of the Android embedding API which will no longer be
+supported in Flutter > 3.24.x ([#35](https://github.com/tjarvstrand/flutter_timezone/issues/35))
+* Fetch a list of all available time zones on web in browsers that support it. ([#34](https://github.com/tjarvstrand/flutter_timezone/pull/34)) @HosamHasanRamadan)
+* Fix support for Windows < 11. ([#36](https://github.com/tjarvstrand/flutter_timezone/pull/36)) @domyd
+
 ## 2.1.0
 
 Add support for Windows.
