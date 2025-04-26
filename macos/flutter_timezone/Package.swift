@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "flutter_timezone",
     platforms: [
-        .macOS("10.11")
+        .macOS("10.14")
     ],
     products: [
         .library(name: "flutter-timezone", targets: ["flutter_timezone"])
