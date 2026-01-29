@@ -36,13 +36,16 @@ class FlutterTimezonePlugin {
   }
 
   List<String> _getAvailableTimezones() {
-    final function = supportedValuesOf as List<String> Function(String value)?;
-    return function?.call('timeZone') ?? [_getLocalTimeZone()];
+    final values = supportedValuesOf('timeZone'.toJS);
+    if (values == null) {
+      return [_getLocalTimeZone()];
+    }
+    return values.toDart.map((value) => value.toDart).toList(growable: false);
   }
 }
 
 @JS('Intl.supportedValuesOf')
-external JSFunction? supportedValuesOf;
+external JSArray<JSString>? supportedValuesOf(JSString value);
 
 @JS('Intl.DateTimeFormat')
 external _JSDateTimeFormat jsDateTimeFormat();
