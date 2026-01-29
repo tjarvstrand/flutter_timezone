@@ -33,7 +33,6 @@ linter:
     - avoid_slow_async_io
     - avoid_type_to_string
     - avoid_types_on_closure_parameters
-    - avoid_unstable_final_fields
     - avoid_unused_constructor_parameters
     - avoid_void_async
     - cancel_subscriptions
@@ -115,7 +114,6 @@ linter:
     - unnecessary_statements
     - unnecessary_to_list_in_spreads
     - unreachable_from_main: false
-    - unsafe_html
     - use_colored_box
     - use_decorated_box
     - use_enums
