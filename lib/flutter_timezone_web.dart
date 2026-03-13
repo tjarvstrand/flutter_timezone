@@ -40,7 +40,7 @@ class FlutterTimezonePlugin {
     if (values == null) {
       return [_getLocalTimeZone()];
     }
-    return values.toDart.map((value) => value.toDart).toList(growable: false);
+    return values.toDart.map((value) => value.toDart).toList();
   }
 }
 
