@@ -1,3 +1,9 @@
+
+
+## [Unreleased]
+
+* Add support for Android Gradle Plugin 9.x by migrating to the built-in Kotlin support, following the [Flutter migration guide for plugin authors](https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors). Backwards compatible with AGP 8.x. @giaquo
+
 ## 5.0.2
 
 * Fix [57](https://github.com/tjarvstrand/flutter_timezone/issues/57) JS interop types ([58](https://github.com/tjarvstrand/flutter_timezone/pull/59) @bsutton and [59](https://github.com/tjarvstrand/flutter_timezone/pull/59 @lacostej)).

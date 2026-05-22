@@ -1,9 +1,5 @@
 plugins {
     id("com.android.application")
-    // Required while android.builtInKotlin=false (Flutter 3.44 default — set by
-    // the Flutter migrator because some Flutter-SDK plugins like
-    // integration_test still apply the legacy KGP). Remove this line once
-    // android.builtInKotlin can be flipped to true.
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -17,6 +13,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     defaultConfig {
@@ -41,10 +41,4 @@ android {
 
 flutter {
     source = "../.."
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-    }
 }

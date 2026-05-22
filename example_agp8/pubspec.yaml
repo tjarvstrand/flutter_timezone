@@ -1,0 +1,23 @@
+name: flutter_timezone_example_agp8
+description: "Demonstrates how to use the flutter_timezone plugin from an app using Android Gradle Plugin 8.x."
+version: 0.0.1
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_timezone:
+    path: ../
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
