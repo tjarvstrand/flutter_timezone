@@ -21,8 +21,12 @@ rootProject.allprojects {
     }
 }
 
+def isAgp9OrAbove = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0].toInteger() >= 9
+
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+if (!isAgp9OrAbove) {
+    apply plugin: 'kotlin-android'
+}
 
 android {
     namespace 'net.wolverinebeach.flutter_timezone'
@@ -31,10 +35,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -47,7 +47,9 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
+    if (!isAgp9OrAbove) {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_17
+        }
     }
 }
