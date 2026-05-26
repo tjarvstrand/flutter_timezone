@@ -1,5 +1,8 @@
 # flutter_timezone
 
+[![pub package](https://img.shields.io/pub/v/flutter_timezone.svg)](https://pub.dev/packages/flutter_timezone)
+[![Keep a Changelog v1.1.0](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.1.0-%23E05735)](https://keepachangelog.com/en/1.1.0/)
+
 A flutter plugin for getting the local timezone of the OS.
 
 This is a fork of the original [flutter_native_timezone](https://pub.dev/packages/flutter_native_timezone) due to lack of maintenance of that package.
