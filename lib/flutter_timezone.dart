@@ -9,7 +9,7 @@ export 'package:flutter_timezone/timezone_info.dart';
 /// Class for getting the native timezone.
 ///
 class FlutterTimezone {
-  static const MethodChannel _channel = MethodChannel('flutter_timezone');
+  static const _channel = MethodChannel('flutter_timezone');
 
   ///
   /// Returns local timezone from the native layer.
@@ -34,12 +34,12 @@ class FlutterTimezone {
   /// On supported platforms (see README), you can optionally provide a locale code (e.g. "en_US", "de") to get the
   /// localized names of the timezones in that locale, if provided by the underlying platform.
   static Future<List<TimezoneInfo>> getAvailableTimezones(
-      [String? locale]) async {
+      [String? locale,]) async {
     final availableTimezones =
         await _channel.invokeListMethod('getAvailableTimezones', locale);
     if (availableTimezones == null) {
       throw ArgumentError(
-          'Invalid return from platform getAvailableTimezones()');
+          'Invalid return from platform getAvailableTimezones()',);
     }
     return availableTimezones.map((timezone) {
       if (timezone is String) {

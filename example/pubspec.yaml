@@ -15,11 +15,15 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
+  wolverinebeach_lints:
+    git:
+      url: git@github.com:tjarvstrand/wolverinebeach_dart_util.git
+      ref: main
+      path: packages/wolverinebeach_lints
 
 flutter:
   uses-material-design: true

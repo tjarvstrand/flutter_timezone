@@ -19,5 +19,5 @@ void main() {
   });
 
   test(
-      'getLocalTimezone', () async => expect(await FlutterTimezone.getLocalTimezone(), TimezoneInfo(identifier: '42')));
+      'getLocalTimezone', () async => expect(await FlutterTimezone.getLocalTimezone(), TimezoneInfo(identifier: '42')),);
 }

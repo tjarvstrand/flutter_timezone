@@ -9,7 +9,7 @@ class TimezoneInfo with EquatableMixin {
     final localizedName = json['localizedName'];
     return TimezoneInfo(
         identifier: json['identifier'] as String,
-        localizedName: localizedName == null ? null : (name: localizedName, locale: json['locale']));
+        localizedName: localizedName == null ? null : (name: localizedName, locale: json['locale']),);
   }
 
   /// The standardized IANA identifier for this timezone, e.g. "America/Los_Angeles", as reported by the underlying

@@ -23,17 +23,16 @@ class FlutterTimezonePlugin {
         return _getAvailableTimezones();
       default:
         throw PlatformException(
-            code: 'Unimplemented',
-            details: "The flutter_native_timezone plugin for web doesn't implement the method '${call.method}'");
+          code: 'Unimplemented',
+          details: "The flutter_native_timezone plugin for web doesn't implement the method '${call.method}'",
+        );
     }
   }
 
   /// Platform-specific implementation of determining the user's
   /// local time zone when running on the web.
   ///
-  String _getLocalTimeZone() {
-    return jsDateTimeFormat().resolvedOptions().timeZone;
-  }
+  String _getLocalTimeZone() => _jsDateTimeFormat().resolvedOptions().timeZone;
 
   List<String> _getAvailableTimezones() {
     final values = supportedValuesOf('timeZone'.toJS);
@@ -48,7 +47,7 @@ class FlutterTimezonePlugin {
 external JSArray<JSString>? supportedValuesOf(JSString value);
 
 @JS('Intl.DateTimeFormat')
-external _JSDateTimeFormat jsDateTimeFormat();
+external _JSDateTimeFormat _jsDateTimeFormat();
 
 @JS('Intl.DateTimeFormat.prototype')
 @staticInterop
