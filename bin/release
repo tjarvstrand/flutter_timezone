@@ -1,0 +1,15 @@
+#!/bin/sh
+# Fetch and run the common dart-release script.
+set -e
+
+RELEASE_VERSION="${RELEASE_VERSION:-main}"
+RELEASE_URL="https://raw.githubusercontent.com/tjarvstrand/wolverinebeach_dart_util/$RELEASE_VERSION/bin/release.sh"
+
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+cache_dir="${script_dir}/../.dart-release"
+cached="${cache_dir}/release.sh"
+
+mkdir -p "$cache_dir"
+curl -fsSL "$RELEASE_URL" -o "$cached"
+
+. "$cached" "$@"

@@ -122,3 +122,4 @@ app.*.symbols
 logs/*.*
 
 .claude/*
+.dart-release/*

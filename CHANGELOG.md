@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for Android Gradle Plugin 9.x. Thanks [@giaquo](https://github.com/giaquo).
+- Release script
 
 ### Fixed
 
