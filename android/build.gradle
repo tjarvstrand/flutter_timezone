@@ -2,14 +2,14 @@ group 'net.wolverinebeach.flutter_timezone'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '2.0.21'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:8.7.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -21,18 +21,8 @@ rootProject.allprojects {
     }
 }
 
-def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
-def builtInKotlinEnabled = project.findProperty('android.builtInKotlin')?.toString() == 'true'
-
 apply plugin: 'com.android.library'
-// AGP 9+ registers the Kotlin Android plugin (and the `kotlin {}` extension)
-// itself only when android.builtInKotlin=true. Flutter 3.44 currently
-// defaults that flag to false to support consumers that depend on
-// unmigrated Flutter-SDK plugins (eg. integration_test). Apply the plugin
-// ourselves whenever AGP isn't going to.
-if (agpMajor < 9 || !builtInKotlinEnabled) {
-    apply plugin: 'kotlin-android'
-}
+apply plugin: 'kotlin-android'
 
 android {
     namespace 'net.wolverinebeach.flutter_timezone'
@@ -41,6 +31,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -52,11 +46,5 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }

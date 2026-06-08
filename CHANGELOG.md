@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.1.1] - 2026-06-08
+
+### Changed
+
+- Bumped the Android Gradle Plugin pinned in the plugin's
+  `android/build.gradle` buildscript classpath from `7.3.0` to
+  `8.7.0`. This matches the direction the wider Flutter plugin
+  community is moving and lines the plugin up with the AGP
+  8.7+ versions that the example app's `settings.gradle.kts`
+  declares.
+- Pinned `android.builtInKotlin=false` and `android.newDsl=false`
+  in `example/android/gradle.properties`. The Flutter 3.44.x
+  Flutter Gradle plugin's `detectApplyingKotlinGradlePlugin`
+  still calls `pluginManager.apply("kotlin-android")` on plugin
+  subprojects during configuration, and AGP 9.0+ rejects the
+  legacy `apply plugin: "kotlin-android"` when
+  `builtInKotlin=true`. Keeping the legacy apply path
+  (with `kotlin-android` in the plugin's buildscript and the
+  example app's plugins block) is the recommended temporary
+  bypass until the project's minimum Flutter version moves
+  past 3.44 and the Flutter Gradle plugin's built-in Kotlin
+  detection is updated to skip plugin subprojects.
+
 ## [5.1.0] - 2026-05-28
 
 ### Added
@@ -186,7 +209,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - [#42 Wikipedia TZ list link, typo fixes](https://github.com/pinkfish/flutter_native_timezone/pull/42)
   - [#48 Fix Kotlin Gradle plugin version requirement](https://github.com/pinkfish/flutter_native_timezone/pull/48)
 
-[Unreleased]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.1.1...HEAD
+[5.1.1]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.1.0...v5.1.1
 [5.1.0]: https://github.com/tjarvstrand/flutter_timezone/releases/tag/v5.1.0
 [5.0.2]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.0.0...v5.0.1
