@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Windows: apps no longer fail to start on Windows 10 versions before 1903 (e.g. 1809 LTSC) with
+  "icu.dll was not found". ICU is now resolved at runtime from System32 (`icu.dll`, falling back
+  to `icuin.dll` + `icuuc.dll` on 1703–1809) instead of being a load-time dependency; if no ICU
+  is available, the methods return an `ICU_UNAVAILABLE` error.
+
 ## [5.1.0] - 2026-05-28
 
 ### Added
