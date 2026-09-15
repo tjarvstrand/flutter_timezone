@@ -9,6 +9,7 @@
 #include <variant>
 
 #include "flutter_timezone_plugin.h"
+#include "icu_loader.h"
 
 namespace flutter_timezone {
     namespace test {
@@ -65,6 +66,34 @@ namespace flutter_timezone {
 
             // Since the string varies by host, just ensure that it's a non-empty string
             EXPECT_GE(resultString.length(), 1);
+        }
+
+        // The tests below run on Windows 10 1903+, where icu.dll exists and the legacy icuin.dll /
+        // icuuc.dll are kept as forwarders. Missing DLL names simulate older systems.
+        constexpr auto kMissingDll = L"flutter_timezone_test_missing.dll";
+
+        TEST(IcuLoader, ResolvesCombinedSystemIcu) {
+            auto api = LoadIcuApi(kSystemIcuDlls);
+
+            ASSERT_TRUE(api.IsAvailable());
+            EXPECT_STREQ(api.source, L"icu.dll");
+        }
+
+        TEST(IcuLoader, FallsBackToLegacyIcuWhenCombinedDllIsMissing) {
+            auto combined = LoadIcuApi(kSystemIcuDlls);
+            auto legacy = LoadIcuApi(IcuDllNames{ kMissingDll, L"icuin.dll", L"icuuc.dll" });
+
+            ASSERT_TRUE(legacy.IsAvailable());
+            EXPECT_STREQ(legacy.source, L"icuin.dll");
+            EXPECT_EQ(LocalTimezoneId(legacy), LocalTimezoneId(combined));
+        }
+
+        TEST(IcuLoader, ReportsUnavailableWithoutIcu) {
+            auto api = LoadIcuApi(IcuDllNames{ kMissingDll, kMissingDll, kMissingDll });
+
+            EXPECT_FALSE(api.IsAvailable());
+            EXPECT_EQ(api.source, nullptr);
+            EXPECT_EQ(LocalTimezoneId(api), std::nullopt);
         }
     }  // namespace test
 }  // namespace flutter_timezone

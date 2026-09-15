@@ -1,12 +1,7 @@
 #include "flutter_timezone_plugin.h"
 
-// This must be included before many other Windows headers.
-#include <windows.h>
-
-// By default, the icu.h header uses char16_t to represent UTF-16 code units. Windows, however, uses
-// wchar_t, so we define UCHAR_TYPE to get the type we want.
-#define UCHAR_TYPE wchar_t
-#include <icu.h>
+// Includes <windows.h> and <icu.h>; must come before many other Windows headers.
+#include "icu_loader.h"
 
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
@@ -16,6 +11,19 @@
 #include <sstream>
 
 namespace flutter_timezone {
+
+    namespace {
+
+        constexpr auto kIcuUnavailableCode = "ICU_UNAVAILABLE";
+        constexpr auto kIcuUnavailableMessage =
+            "System ICU not found (requires Windows 10 version 1703 or later).";
+
+        const IcuApi& SystemIcu() {
+            static const IcuApi api = LoadIcuApi(kSystemIcuDlls);
+            return api;
+        }
+
+    }  // namespace
 
     // static
     void FlutterTimezonePlugin::RegisterWithRegistrar(
@@ -63,43 +71,12 @@ namespace flutter_timezone {
     /// </remarks>
     void FlutterTimezonePlugin::GetLocalTimezone(
         std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>>& result) {
-        // This entire function body could be replaced with a call to `ucal_getHostTimeZone`.
-        // However, that function as only added in ICU 65, which is only available on Windows 11.
-        // Once we drop support for older Windows versions, this should be replaced.
-
-        // Get the current Windows time zone
-        DYNAMIC_TIME_ZONE_INFORMATION tzInfo;
-        GetDynamicTimeZoneInformation(&tzInfo);
-
-        // Get the user's region
-        wchar_t geoBuffer[4];
-        GetUserDefaultGeoName(geoBuffer, ARRAYSIZE(geoBuffer));
-
-        // Convert the `geoBuffer` to a single byte string, which is fine since the contents are
-        // supposed to be basic ASCII.
-        std::wstring geoW(geoBuffer);
-#pragma warning(suppress : 4244)
-        std::string geo(geoW.begin(), geoW.end());
-
-        // Map the (Windows Time Zone, Region) pair to an IANA time zone ID
-        UErrorCode status = U_ZERO_ERROR;
-        UChar buffer[128];
-        auto length = ucal_getTimeZoneIDForWindowsID(
-            tzInfo.TimeZoneKeyName,
-            -1,
-            geo.c_str(),
-            buffer,
-            ARRAYSIZE(buffer),
-            &status);
-
-        if (length == 0) {
-            // No mapping found between Windows and IANA time zone ids
-            result->Success(flutter::EncodableValue(std::string(UCAL_UNKNOWN_ZONE_ID)));
+        auto timezone = LocalTimezoneId(SystemIcu());
+        if (!timezone) {
+            result->Error(kIcuUnavailableCode, kIcuUnavailableMessage);
+            return;
         }
-
-        std::wstring tz(buffer);
-#pragma warning(suppress : 4244)
-        result->Success(flutter::EncodableValue(std::string(tz.begin(), tz.end())));
+        result->Success(flutter::EncodableValue(*timezone));
     }
 
     /// <summary>
@@ -108,26 +85,33 @@ namespace flutter_timezone {
     /// <returns>A vector of timezones as EncodableValue's.</returns>
     void FlutterTimezonePlugin::GetAvailableTimezones(
         std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>>& result) {
+        const auto& icu = SystemIcu();
+        if (!icu.IsAvailable()) {
+            result->Error(kIcuUnavailableCode, kIcuUnavailableMessage);
+            return;
+        }
+
         UErrorCode status = U_ZERO_ERROR;
 
         // open an enumeration for any kind of available timezone without country/offset filtering.
-        auto tzEnumeration = ucal_openTimeZoneIDEnumeration(
+        auto tzEnumeration = icu.openTimeZoneIDEnumeration(
             USystemTimeZoneType::UCAL_ZONE_TYPE_CANONICAL,
             nullptr,
             nullptr,
             &status);
 
         if (U_FAILURE(status)) {
-            result->Error(std::string(u_errorName(status)), "Could not fetch available timezones.");
+            result->Error(std::string(icu.errorName(status)), "Could not fetch available timezones.");
+            return;
         }
 
-        auto count = uenum_count(tzEnumeration, &status);
+        auto count = icu.enumCount(tzEnumeration, &status);
 
         std::vector<flutter::EncodableValue> timezones{};
         timezones.reserve(count);
 
         for (auto i = 0; i < count; i++) {
-            auto buffer = uenum_next(tzEnumeration, nullptr, &status);
+            auto buffer = icu.enumNext(tzEnumeration, nullptr, &status);
 
             if (U_FAILURE(status)) {
                 // Failed to read the current value, try the next one.
@@ -138,7 +122,7 @@ namespace flutter_timezone {
         }
 
         // close the enumeration
-        uenum_close(tzEnumeration);
+        icu.enumClose(tzEnumeration);
 
         result->Success(flutter::EncodableList(timezones));
     }

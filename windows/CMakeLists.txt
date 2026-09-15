@@ -20,6 +20,7 @@ set(PLUGIN_NAME "flutter_timezone_plugin")
 list(APPEND PLUGIN_SOURCES
   "flutter_timezone_plugin.cpp"
   "flutter_timezone_plugin.h"
+  "icu_loader.h"
 )
 
 # Define the plugin library target. Its name must not be changed (see comment
@@ -47,7 +48,8 @@ target_compile_definitions(${PLUGIN_NAME} PRIVATE FLUTTER_PLUGIN_IMPL)
 target_include_directories(${PLUGIN_NAME} INTERFACE
   "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
-target_link_libraries(${PLUGIN_NAME} PRIVATE icu)
+# ICU is resolved at runtime (icu_loader.h); linking `icu` would make icu.dll a load-time
+# dependency and prevent the app from starting on Windows 10 versions before 1903.
 
 # List of absolute paths to libraries that should be bundled with the plugin.
 # This list could contain prebuilt libraries, or libraries created by an
@@ -88,7 +90,6 @@ add_executable(${TEST_RUNNER}
 apply_standard_settings(${TEST_RUNNER})
 target_include_directories(${TEST_RUNNER} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 target_link_libraries(${TEST_RUNNER} PRIVATE flutter_wrapper_plugin)
-target_link_libraries(${TEST_RUNNER} PRIVATE icu)
 target_link_libraries(${TEST_RUNNER} PRIVATE gtest_main gmock)
 # flutter_wrapper_plugin has link dependencies on the Flutter DLL.
 add_custom_command(TARGET ${TEST_RUNNER} POST_BUILD
