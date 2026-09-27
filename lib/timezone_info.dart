@@ -2,14 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class TimezoneInfo with EquatableMixin {
+class TimezoneInfo with Equatable {
   TimezoneInfo({required this.identifier, this.localizedName});
 
   factory TimezoneInfo.fromJson(Map json) {
     final localizedName = json['localizedName'];
     return TimezoneInfo(
-        identifier: json['identifier'] as String,
-        localizedName: localizedName == null ? null : (name: localizedName, locale: json['locale']),);
+      identifier: json['identifier'] as String,
+      localizedName: localizedName == null ? null : (name: localizedName, locale: json['locale']),
+    );
   }
 
   /// The standardized IANA identifier for this timezone, e.g. "America/Los_Angeles", as reported by the underlying
