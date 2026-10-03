@@ -30,8 +30,12 @@ apply plugin: 'com.android.library'
 // defaults that flag to false to support consumers that depend on
 // unmigrated Flutter-SDK plugins (eg. integration_test). Apply the plugin
 // ourselves whenever AGP isn't going to.
+//
+// Applied via pluginManager rather than `apply plugin:` so that Flutter's
+// static "plugin applies KGP" detection, which pattern-matches build file
+// text and cannot see this guard, does not flag the plugin.
 if (agpMajor < 9 || !builtInKotlinEnabled) {
-    apply plugin: 'kotlin-android'
+    pluginManager.apply('kotlin-android')
 }
 
 android {
