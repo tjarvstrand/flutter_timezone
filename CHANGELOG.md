@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.1.1] - 2026-10-03
+
 ### Fixed
 
 - Avoid Flutter's regex based plugin apply warning ([#66](https://github.com/tjarvstrand/flutter_timezone/issues/66))
@@ -192,7 +194,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - [#42 Wikipedia TZ list link, typo fixes](https://github.com/pinkfish/flutter_native_timezone/pull/42)
   - [#48 Fix Kotlin Gradle plugin version requirement](https://github.com/pinkfish/flutter_native_timezone/pull/48)
 
-[Unreleased]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.1.1...HEAD
+[5.1.1]: https://github.com/tjarvstrand/flutter_timezone/releases/tag/v5.1.1
 [5.1.0]: https://github.com/tjarvstrand/flutter_timezone/releases/tag/v5.1.0
 [5.0.2]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/tjarvstrand/flutter_timezone/compare/v5.0.0...v5.0.1
