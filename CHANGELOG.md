@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Avoid Flutter's regex based plugin apply warning ([#66](https://github.com/tjarvstrand/flutter_timezone/issues/66))
+  Thanks [@CooperWolfe](https://github.com/CooperWolfe).
 - Support equatable 3.0.0+
 
 ## [5.1.0] - 2026-05-28
@@ -27,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- JS interop types ([#57](https://github.com/tjarvstrand/flutter_timezone/issues/57),
+- JS interop types ([#57](https://github.com/tjarvstrand/flutter_timezone/issues/57)),
   [#59](https://github.com/tjarvstrand/flutter_timezone/pull/59)).
   Thanks [@bsutton](https://github.com/bsutton) and
   [@lacostej](https://github.com/lacostej).
